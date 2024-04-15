@@ -83,6 +83,25 @@ I hope you enjoy your Neovim journey,
 
 P.S. You can delete this when you're done too. It's your config now! :)
 --]]
+--
+--From :help shell-powershell
+--[[
+		let &shell = executable('pwsh') ? 'pwsh' : 'powershell'
+		let &shellcmdflag = '-NoLogo -ExecutionPolicy RemoteSigned -Command [Console]::InputEncoding=[Console]::OutputEncoding=[System.Text.UTF8Encoding]::new();$PSDefaultParameterValues[''Out-File:Encoding'']=''utf8'';'
+		let &shellredir = '2>&1 | %%{ "$_" } | Out-File %s; exit $LastExitCode'
+		let &shellpipe  = '2>&1 | %%{ "$_" } | Tee-Object %s; exit $LastExitCode'
+		set shellquote= shellxquote=
+--]]
+
+-- My stuff (Thanks, TJ)
+-- vim.keymap.set('i', 'jj', '<Esc>', { desc = 'Exit insert mode' })
+vim.keymap.set('i', 'jk', '<Esc>', { desc = 'Exit insert mode' })
+vim.opt.shell = 'pwsh'
+vim.opt.shellcmdflag = '-nologo -noprofile -ExecutionPolicy RemoteSigned -command'
+vim.opt.shellxquote = ''
+vim.api.nvim_set_var('terminal_emulator', 'pwsh')
+-- vim.keymap.set('t', 'jj', '<C-\\><C-n>', { desc = 'Exit insert mode' })
+vim.keymap.set('t', 'jk', '<C-\\><C-n>', { desc = 'Exit insert mode' })
 
 -- Set <space> as the leader key
 -- See `:help mapleader`
